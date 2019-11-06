@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style >
+      body {
+    font-size: 16px;
+    background: #f9f9f9;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+form {
+    width: 300px;
+    background: #fff;
+    padding: 15px 40px 40px;
+    border: 1px solid #ccc;
+    margin: 50px auto 0;
+    border-radius: 5px;
+}
+label {
+    display: block;
+    margin-bottom: 5px
+}
+label i {
+    color: #999;
+    font-size: 80%;
+}
+input, select {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.row {
+    padding-bottom: 10px;
+}
+.form-inline {
+    border: 1px solid #ccc;
+    padding: 8px 10px 4px;
+    border-radius: 2px;
+}
+.form-inline label, .form-inline input {
+    display: inline-block;
+    width: auto;
+    padding-right: 15px;
+}
+.error {
+    color: red;
+    font-size: 90%;
+}
+input[type="submit"] {
+    font-size: 110%;
+    font-weight: 100;
+    background: #006dcc;
+    border-color: #016BC1;
+    box-shadow: 0 3px 0 #0165b6;
+    color: #fff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+input[name="submit"]:hover {
+    background: #0165b6;
+}
+    </style>
+    <script>
+ function errorMessage(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
+function validateForm() {
+   
+    let name = document.myForm.name.value;
+    let email = document.myForm.email.value;
+    let mobile = document.myForm.mobile.value;
+    let age = document.myForm.age.value;  
+    let message = document.myForm.message.value;
+    let password = document.myForm.password.value;
+    let gender = document.myForm.gender.value;
+    let fruits =[];
+    let checkboxes = document.getElementsByName("fruits[]").value;
+    
+
+
+
+
+
+    let nameErr = emailErr = mobileErr = ageErr = messErr = passErr = genErr = fruErr = true;
+
+   
+    if(name == "") {
+        errorMessage("nameErr", "Please enter your name");
+        document.forms["myForm"]["name"].style.background = 'red';
+    } else {
+        // let regex = /^[a-zA-Z\s]+$/;
+        // if(regex.test(name) === false) {
+        //     errorMessage("nameErr", "Please enter a valid name");
+        //     document.forms["myForm"]["name"].style.background = 'red';
+        // } else {
+        //     errorMessage("nameErr", "");
+        //     nameErr = false;
+        // }
+        for(let k=0; k<=name.length;k++){
+                  let nameChar = name.charCodeAt(k);
+                  
+                  if( (nameChar > 64 && nameChar < 91) && (nameChar > 32 && nameChar < 48) ){
+
+                  }
+                  else{
+                    errorMessage("nameErr", "Please enter a correct name.. Stop Using Franco Dummy");
+                    document.forms["myForm"]["name"].style.background = 'red';
+                  }
+              } 
+    }
+
+  
+    if(email == "") {
+        errorMessage("emailErr", "Please enter your email address");
+        document.forms["myForm"]["email"].style.background = 'red';
+    } else {
+         
+        // let regex = /^\S+@\S+\.\S+$/;
+        // if(regex.test(email) === false) {
+        //     errorMessage("emailErr", "Please enter a valid email address");
+        //     document.forms["myForm"]["email"].style.background = 'red';
+        // } else{
+        //     errorMessage("emailErr", "");
+        //     emailErr = false;
+        // }
+
+        if (email.indexOf("@") == -1) {
+            errorMessage("emailErr", "Please enter a valid email address with @");
+             document.forms["myForm"]["email"].style.background = 'red'; 
+        }
+        let parts = email.split("@");
+        let dot = parts[1].indexOf(".");
+        let len = parts[1].length;
+        let dotSplits = parts[1].split(".");
+        let dotCount = dotSplits.length - 1;
+        if (dot == -1 || dot < 2 || dotCount > 2) {
+            errorMessage("emailErr", "Please enter a valid email with dot");
+             document.forms["myForm"]["email"].style.background = 'red'; 
+        }
+        for (let i = 0; i < dotSplits.length; i++) {
+            if (dotSplits[i].length == 0) {
+                errorMessage("emailErr", "Please enter a valid email with dot and 'com' ");
+             document.forms["myForm"]["email"].style.background = 'red'; 
+            }
+        }
+    }
+
+    if(mobile == "") {
+        errorMessage("mobileErr", "Please enter your mobile number");
+        document.forms["myForm"]["mobile"].style.background = 'red';
+    } else {
+       // let regex = /^\s*(?:\+?(\d{3}))?[ ]*(\d{9})\s*$/;
+
+        // if(regex.test(mobile) === false) {
+        //     errorMessage("mobileErr", "Please enter a valid mobile number");
+        //     document.forms["myForm"]["mobile"].style.background = 'red';
+        // } else{
+        //     errorMessage("mobileErr", "");
+        //     mobileErr = false;
+        // }
+
+            if(mobile.length == 9 ){
+                if(mobile[0]=='7' && (mobile[1]=='0' || mobile[1]=='1' || mobile[1]=='7' || mobile[1]=='3')){
+
+                }
+                else {
+                    errorMessage("mobileErr", "Please enter a valid mobile number");
+                    document.forms["myForm"]["mobile"].style.background = 'red';
+                }
+                
+            }
+            else {
+                errorMessage("mobileErr", "Please enter a nine digit mobile number");
+                    document.forms["myForm"]["mobile"].style.background = 'red';
+            }
+
+    }
+    if(password == "") {
+        errorMessage("passErr", "Please enter your password");
+        document.forms["myForm"]["password"].style.background = 'red';
+    } else {
+            
+              for(let j=0; j<=password.length;j++){
+                  let char = password.charCodeAt(i);
+                  if(password.length == 9 ){
+
+                  }
+                  else {
+                errorMessage("passErr", "Please enter a nine digit password");
+                    document.forms["myForm"]["password"].style.background = 'red';
+            }
+                  if(char > 47 && char < 58) {
+
+                  }
+                  else{
+                    errorMessage("passErr", "Please enter a symbol");
+                    document.forms["myForm"]["password"].style.background = 'red';
+                  }
+                  if(char > 64 && char < 91){}
+                  else{
+                    errorMessage("passErr", "Please enter a capital letter");
+                    document.forms["myForm"]["password"].style.background = 'red';
+                  }
+                  if(char > 96 && char < 123){}
+                  else{
+                    errorMessage("passErr", "Please enter a number");
+                    document.forms["myForm"]["password"].style.background = 'red';
+                  }
+                  if(char > 32 && char < 48){}
+                  else{
+                    errorMessage("passErr", "Please enter a small letter");
+                    document.forms["myForm"]["password"].style.background = 'red';
+                  }
+              } 
+            
+            
+
+    }
+
+
+    if(age == "") {
+        errorMessage("ageErr", "Please enter your age");
+        document.forms["myForm"]["age"].style.background = 'red';
+    } else {
+        // let regex = /^\d{2}$/;
+        // if(regex.test(age) === false ) {
+        //     errorMessage("ageErr", "Enter Your Damn Age");
+        //     document.forms["myForm"]["age"].style.background = 'red';
+        // } else{
+        //     errorMessage("ageErr", "");
+        //     ageErr = false;
+        // }
+        switch (true){
+            case   age <=6 :
+             console.log("baby");
+             break; 
+             case   age <=18 :
+             console.log("Teen");
+             break; 
+             case   age <=30 :
+             console.log("Adult");
+             break; 
+             case   age <=60 :
+             console.log("Old");
+             break;   
+        }
+    }
+    if(message == "") {
+        errorMessage("messErr", "Please insert a link");
+        document.forms["myForm"]["message"].style.background = 'red';
+    } else {
+        // let regex = /^[a-zA-Z]{200,299}$/;
+        // if( regex.test(message) === false ) {
+        //     errorMessage("messErr", "Hey Dummy write a stupid short message");
+        //     document.forms["myForm"]["message"].style.background = 'red';
+
+        // } else{
+        //     errorMessage("messErr", "");
+        //     ageErr = false;
+        // }
+        if(message[0]=='h' && message[1]=='t' && message[2]=='t' && message[3]=='p' && message[4]=='s'){
+
+}
+else {
+    errorMessage("messErr", "Please enter a valid link");
+    document.forms["myForm"]["message"].style.background = 'red';
+}
+    }
+    if (document.querySelector("#male").value === "male")
+         console.log("You selected male");
+       if (document.querySelector("#female").value === "female")
+       console.log("You selected female");
+
+
+
+
+    if((nameErr || emailErr || mobileErr || ageErr || messErr || passErr || genErr || fruErr) == true) {
+       return false;
+    }
+}  
+</script>
+  </head>
+  <body>
+    <div class="mt">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-m-12">
+                        <h1> </h1>
+                        <form  name="myForm" onsubmit="return validateForm()" method="post">
+                            <label class="left" for="">First & Last Name</label>
+                            <input type="text" name="name" placeholder="First Name" ><br>
+                                 <span class="error" id="nameErr"></span>
+                            <label for="">Email</label>
+                            <input type="text" name="email" placeholder="Email Address"><br>
+                            <span class="error" id="emailErr"></span>
+                            <label for="">Age</label>
+                            <input type="text" name="age" placeholder="Be Honest"><br>
+                            <span class="error" id="ageErr"></span>
+                            <label for="">Mobile Number</label>
+                            <input type="text" name="mobile" placeholder="Cell-Phone Number"><br>
+                            <span class="error" id="mobileErr"></span>
+                            <label for="">Password</label>
+                            <input type="text" name="password" placeholder="Password"><br>
+                            <span class="error" id="passErr"></span>
+                            <label>Gender</label>
+                               <div   class="form-inline">
+                                <label><input type="radio" name="gender" value="male" id="male"> Male</label>
+                                <label><input type="radio" name="gender" value="female" id="female"> Female</label>
+                               </div>
+                               <label>Fruits</label>
+                               <div class="form-inline">
+                                   <label><input type="checkbox" name="fruits[]" value="Banana"> Banana</label>
+                                   <label><input type="checkbox" name="fruits[]" value="Orange"> Orange</label>
+                                   <label><input type="checkbox" name="fruits[]" value="Safergel"> Safergel</label>
+                               </div>
+                            <label for=""></label>
+                            <input type="text" name="message" id="height" placeholder="Place Your Link Here"><br>
+                            <span class="error" id="messErr"></span>
+                            <label for=""></label>
+                            <input type="submit" name="Submit" value="Submit" id="Submit">
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
